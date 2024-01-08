@@ -85,17 +85,17 @@ function addDivsContent(html ,  ArticlesData , amp) {
   return a;
 }
 
- function processed_Content_For_Non_AMP() {
+ function Processed_Content_For_Non_AMP() {
   const ArticlesData = useSelector((state) => state.ArticlesData);
   let a = addDivsContent(ArticlesData.content , ArticlesData ,false);
   return a;
 }
- function unprocessed_Content() {
+ function Unprocessed_Content() {
   const a = useSelector((state) => state.ArticlesData);
   return a;
 }
 
- function processed_Content_For_AMP() {
+ function Processed_Content_For_AMP() {
   const ArticlesData = useSelector((state) => state.ArticlesData);
   let a = addDivsContent(ArticlesData.content , ArticlesData , true);
   return a
@@ -104,9 +104,9 @@ function addDivsContent(html ,  ArticlesData , amp) {
 
 
 export function processed_Content(){
-  let AmpContent = processed_Content_For_AMP()
-  let NonAmpContent = processed_Content_For_Non_AMP()
-  let Rawcontent = unprocessed_Content()
+  let AmpContent = Processed_Content_For_AMP()
+  let NonAmpContent = Processed_Content_For_Non_AMP()
+  let Rawcontent = Unprocessed_Content()
 
   return [AmpContent,NonAmpContent , Rawcontent]
 }
