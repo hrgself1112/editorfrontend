@@ -17,9 +17,16 @@ import { schemaData } from "@/data/data";
 const TinyMceEditor = () => {
   const editorRef = useRef(null);
   const dispatch = useDispatch();
-  const [data, setdata] = useState("");
+  const [localStorages, setdata] = useState("dark");
+  useEffect(() => {
+    setdata(localStorage.getItem("theme"))
+  
+  }, [])
+  
 
   const ArticlesData = useSelector((state) => state.ArticlesData);
+  
+  const [localStorageItems, setLocalStorageItems] = useState([]);
 
   function getCleanedContent() {
     if (editorRef.current) {
@@ -113,8 +120,9 @@ console.log(obj)
   }
 
   const reudxd = () => {
-    console.log(ArticlesData);
-    // handleEditorChange()
+  
+    let a = localStorage.getItem("theme")
+    console.log(a);
   };
   const handleEditorChange = (content, editor) => {
     // Dispatch the action to update the TinyMCE content in the Redux store
@@ -131,6 +139,7 @@ console.log(obj)
         processedContentAMP: AmpContent.join(""),
       })
     );
+
   }, [ArticlesData.content]);
 
   return (
@@ -141,16 +150,10 @@ console.log(obj)
           editorRef.current = editor;
         }}
         initialValue={ArticlesData.content}
-        // onChange={handleEditorChange}
-        // value={ArticlesData.content}
         init={{
           // change theme from here
-          // skin: window && window.matchMedia("(prefers-color-scheme: dark)").matches
-          //   ? "oxide-dark"
-          //   : "oxide",
-          // content_css: window && window.matchMedia("(prefers-color-scheme: dark)").matches
-          //   ? "dark"
-          //   : "default",
+          skin: localStorages  == "dark" ? "oxide-dark": "oxide",
+          content_css: localStorages == "dark" ? "dark" : "default",
 
           height: 500,
           menubar: false,
