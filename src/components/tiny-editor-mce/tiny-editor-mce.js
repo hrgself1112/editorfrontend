@@ -144,7 +144,14 @@ console.log(obj)
         // onChange={handleEditorChange}
         // value={ArticlesData.content}
         init={{
-       
+          // change theme from here
+          skin: window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "oxide-dark"
+            : "oxide",
+          content_css: window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "default",
+
           height: 500,
           menubar: false,
           plugins: [
