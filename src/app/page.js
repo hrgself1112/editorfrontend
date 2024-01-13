@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-This is empty page naviagte to see anything. 
+heyy 
 
 <Link href="/article" >Article</Link>
     </>

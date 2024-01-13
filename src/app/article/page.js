@@ -3,8 +3,10 @@ import { Hi_En_SelectBoxesforPath } from '@/components/hi_en_select'
 import { SelectBoxes } from '@/components/authorselect'
 import { SelectBoxesforPath } from '@/components/selectpath'
 import { TextAreaBox} from '@/components/text-area'
-import ThemeChangeButtons from '@/components/theme-button/theme-change-buttons'
+import ThemeChangeButtons from '@/components/buttons/theme-button/theme-change-buttons'
 import TinyMceEditor from '@/components/tiny-editor-mce/tiny-editor-mce'
+import Resetbtn from '@/components/buttons/reset-btn/reset-btn'
+import Submitbtn from '@/components/buttons/submit-btn/submit-btn'
 
 const page = () => {
 
@@ -18,8 +20,9 @@ const page = () => {
       <SelectBoxes/>
       <Hi_En_SelectBoxesforPath/>
       </div>
-
       <TextAreaBox />
+      <Submitbtn/>
+<Resetbtn/>
     </div>
   )
 }
