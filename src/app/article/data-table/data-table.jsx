@@ -57,7 +57,7 @@ const axios = require('axios');
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('https://astroeditorbackend.vercel.app/register/lasttwodays');
+          const response = await fetch('https://astroeditorbackend.vercel.app/register');
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
