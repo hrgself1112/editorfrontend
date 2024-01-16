@@ -7,6 +7,7 @@ import ThemeChangeButtons from '@/components/buttons/theme-button/theme-change-b
 import TinyMceEditor from '@/components/tiny-editor-mce/tiny-editor-mce'
 import Resetbtn from '@/components/buttons/reset-btn/reset-btn'
 import Submitbtn from '@/components/buttons/submit-btn/submit-btn'
+import { TableDemo } from './data-table/data-table'
 
 const page = () => {
 
@@ -27,6 +28,10 @@ const page = () => {
       <Resetbtn />
       </div>
       
+      <hr/>
+
+<TableDemo/>
+
     </div>
   )
 }
