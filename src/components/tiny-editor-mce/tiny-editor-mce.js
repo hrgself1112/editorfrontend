@@ -7,17 +7,16 @@ import { updateUser } from "@/redux/slices/article-data";
 import { extractFileNamesFromUrls } from "@/function/extractFileName";
 import { getTitleAndMeta, utilsCleaner } from "@/function/extractcleandata";
 import { FAQS } from "@/app/article/processedFaq";
-import {
-  addDivsContent,
-  processed_Content,
-  processed_Content_For_AMP,
-} from "@/app/article/processContent";
+import { processed_Content,} from "@/app/article/processContent";
 import { schemaData } from "@/data/data";
+import { useToast } from "@/components/ui/use-toast"
 
 const TinyMceEditor = () => {
+  const { toast } = useToast()
   const editorRef = useRef(null);
   const dispatch = useDispatch();
   const [localStorages, setdata] = useState("dark");
+
   useEffect(() => {
     setdata(localStorage.getItem("theme"))
   
@@ -26,8 +25,6 @@ const TinyMceEditor = () => {
 
   const ArticlesData = useSelector((state) => state.ArticlesData);
   
-  const [localStorageItems, setLocalStorageItems] = useState([]);
-
   function getCleanedContent() {
     if (editorRef.current) {
       var sourceCode = editorRef.current.getContent();
@@ -43,7 +40,35 @@ const TinyMceEditor = () => {
 
   let [AmpContent, NonAmpContent] = processed_Content();
 
+function finaliseContent (){
+  if(getCleanedContent() == ""){
+      toast({
+        title: "Content Box is Empty",
+        description: "Enter Something in box",
+      })
+  }
+  else if(ArticlesData.path == ""){
+    toast({
+      title: "Select Article Type",
+      description: "Enter Something in box",
+    })
+  
+  }
+  else if(ArticlesData.AuthorProfile == ""){
+    toast({
+      title: "Select Auhtor",
+      description: "Enter Something in box",
+    })
+
+  }
+  else{
+    setMetaAndDataToRedux()
+}
+
+  
   function setMetaAndDataToRedux() {
+   
+
     let [resultObject, cleanedContent] = getTitleAndMeta(getCleanedContent());
     let { Title, Description, Keywords, URL, H1 } = resultObject;
     let [FAQNAMP, FAQAMP] = FAQS(ArticlesData.faq);
@@ -119,17 +144,8 @@ console.log(obj)
     );
   }
 
-  const reudxd = () => {
-  
-    let a = localStorage.getItem("theme")
-    console.log(a);
-  };
-  const handleEditorChange = (content, editor) => {
-    // Dispatch the action to update the TinyMCE content in the Redux store
-    console.log(content);
-    console.log(editor);
-    dispatch(updateUser({ content: content }));
-  };
+}
+
 
   useEffect(() => {
     dispatch(
@@ -194,11 +210,12 @@ console.log(obj)
         }}
       />
 
-      <Button onClick={() => setMetaAndDataToRedux()}>Get Title</Button>
-      <Button onClick={() => reudxd()}>see all</Button>
-      {/* <pre>
-        {ArticlesData.processedContentAMP && ArticlesData.processedContentAMP}
-      </pre> */}
+
+      
+      <div className="my-3">
+      <Button className="lg:w-[14rem] max-sm:w-full" onClick={() => finaliseContent()}>Finalise Content</Button>
+      </div>
+
     </>
   );
 };

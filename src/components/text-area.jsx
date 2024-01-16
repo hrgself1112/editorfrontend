@@ -55,7 +55,7 @@ export const TextAreaBox = () => {
                         data.map((items, index) => {
                             let { name } = items
                             return (
-                                <div key={index}  className={`w-${items.width ? items.width : items.width = 50}s`}>
+                                <div key={index}  className={` ${  index == 0 ? "w-100imp" : index == 1 || index == 2 ? "w-50s" : ""} w-${items.width ? items.width : items.width = 50}s `}>
                                     <Textarea
                                         name={name}
                                         value={ArticlesData[name]}

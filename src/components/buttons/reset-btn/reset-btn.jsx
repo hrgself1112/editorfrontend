@@ -14,7 +14,7 @@ const Resetbtn = () => {
 
     return (
         <>
-            <Button onClick={handleReset} >Reset</Button>
+            <Button onClick={handleReset} className="" >Reset</Button>
 
         </>
     )

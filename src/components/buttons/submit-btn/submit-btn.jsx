@@ -26,7 +26,7 @@ const Submitbtn = () => {
 
     return (
         <>
-            <Button onClick={handleSubmit} >Submit</Button>
+            <Button className="max-sm:w-[70%] mx-2"  onClick={handleSubmit} >Submit</Button>
 
         </>
     )

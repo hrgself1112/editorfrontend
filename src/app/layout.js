@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./global.css";
 import { ThemeProviderr } from "@/components/theme-provider";
 import ReduxProvider from "@/redux/store/provider";
-
+import { Toaster } from "@/components/ui/toaster"
+ 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>{children}
+          <Toaster />
+          </body>
         </ThemeProviderr>
       </ReduxProvider>
     </html>

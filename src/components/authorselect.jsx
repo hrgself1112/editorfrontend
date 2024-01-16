@@ -20,10 +20,9 @@ export function SelectBoxes() {
 
     const schange = (value) => {
         let profile = data[value]
-        console.log(profile);
-let {uniqueFindingKey ,uniqueKey ,searchTamil ,profilename ,profileUrl ,profileImageUrl ,FaqLangH2} = profile
-
-dispatch(updateUser({AuthorProfile:profile}))
+        let {uniqueFindingKey ,uniqueKey ,searchTamil ,profilename ,profileUrl ,profileImageUrl ,FaqLangH2} = profile
+        
+        dispatch(updateUser({AuthorProfile:profile}))
 }
     
     
@@ -34,7 +33,6 @@ dispatch(updateUser({AuthorProfile:profile}))
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>North America</SelectLabel>
           {Object.values(data).map((data , index) => {
             return (
               <SelectItem key={index} value={data.uniqueKey} >{data.profilename}</SelectItem>

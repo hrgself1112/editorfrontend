@@ -76,10 +76,13 @@
 }
 
 .w-50s{
-width: 50%;
+width: 50% !important ;
 padding: 6px;
 }
 .w-33s{
   width: 33%;
   padding: 6px;
+}
+.w-100imp{
+  width: 100% !important;
 }

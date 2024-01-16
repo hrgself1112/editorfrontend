@@ -38,7 +38,6 @@ export function SelectBoxesforPath() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>North America</SelectLabel>
           {Object.values(data).map((data , index) => {
             return (
               <SelectItem key={index} value={data.value} >{data.value}</SelectItem>
