@@ -23,10 +23,10 @@ import Link from "next/link";
           <MenubarTrigger>Navigation</MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              <Link href="/">Article</Link> 
+              <Link href="/">Home</Link> 
             </MenubarItem>
             <MenubarItem>
-              New Window <MenubarShortcut>⌘N</MenubarShortcut>
+            <Link href="/article">Articles</Link>
             </MenubarItem>
             <MenubarItem >New Incognito Window</MenubarItem>
             <MenubarSeparator />
