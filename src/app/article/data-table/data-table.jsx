@@ -160,16 +160,16 @@ export function TableDemo() {
 
       // Generate HTML links based on filtered data
       const generatedLinks = filteredData.map(items => (
-        `\nhttps://www.astrosage.com/${items.newerPath}/${items.url}`
+        `https://www.astrosage.com/${items.newerPath}/${items.url}\n`
       ));
 
       // Join the generated HTML links into a single string
-      const htmlToCopy = generatedLinks.join('\n');
+      const htmlToCopy = generatedLinks
       try {
         await navigator.share({
-          url: htmlToCopy
+          url: htmlToCopy.join('\n')
         });
-        console.log('Successfully shared');
+        console.log('Successfully shared' , htmlToCopy);
       } catch (error) {
         console.error('Error sharing:', error.message);
       }
