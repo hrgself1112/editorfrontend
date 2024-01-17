@@ -160,12 +160,14 @@ console.log(obj)
 
   return (
     <>
+    <div         className="max-sm:mx-2">
+
       <Editor
         apiKey="ukp011qdo98a3trdt1pioac8ckm1chcarn52oalmcaxiq4qg"
         onInit={(evt, editor) => {
           editorRef.current = editor;
         }}
-        className="max-sm:mx-2"
+
         initialValue={ArticlesData.content}
         init={{
           // change theme from here
@@ -233,10 +235,11 @@ console.log(obj)
           menubar: "favs file edit view insert format tools table help",
         }}
       />
+    </div>
 
 
       
-      <div className="my-3">
+      <div className="my-3 mx-2">
       <Button className="lg:w-[14rem] max-sm:w-full" onClick={() => finaliseContent()}>Finalise Content</Button>
       </div>
 
