@@ -1,16 +1,16 @@
 "use client"
 import { Checkbox } from "@/components/ui/checkbox"
-import {useState , useEffect} from "react"
+import { useState, useEffect } from "react"
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast"
 
@@ -20,146 +20,151 @@ import { DropdownMenuCheckboxes } from "@/components/table-actions-dropdown/drop
 
 
 const axios = require('axios');
-  export function TableDemo() {
+export function TableDemo() {
 
-    const { toast } = useToast()
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [checkboxArray, setCheckboxArray] = useState([]);
+  const { toast } = useToast()
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [checkboxArray, setCheckboxArray] = useState([]);
 
-    const updateArray = (checkboxId) => {
-      if (checkboxArray.includes(checkboxId)) {
-        // Checkbox is in the array, remove it
-        const newArray = checkboxArray
-          .split(',')
-          .filter((id) => id !== checkboxId)
-          .join(',');
-    
-        setCheckboxArray(newArray);
-      } else {
-        // Checkbox is not in the array, add it
-        setCheckboxArray((prevArray) => (prevArray ? `${prevArray},${checkboxId}` : checkboxId));
-      }
-    
-      // Display the current state of the array
-      console.log(`https://astroeditorbackend.vercel.app/register/download/articles?id=${checkboxArray.slice(1)}`)
-    };
-    
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch('https://astroeditorbackend.vercel.app/register');
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const result = await response.json();
-          setData(result);
-        } catch (error) {
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchData();
-    }, []);
+  const updateArray = (checkboxId) => {
+    if (checkboxArray.includes(checkboxId)) {
+      // Checkbox is in the array, remove it
+      const newArray = checkboxArray
+        .split(',')
+        .filter((id) => id !== checkboxId)
+        .join(',');
 
-const downloadSelected = async () =>{
-if(checkboxArray.length < 1){
-  toast({
-    title: "Array is Empty",
-    description: "Noting to downlaod",
-  })
-}else{
-
-  try {
-    const response = await fetch(`https://astroeditorbackend.vercel.app/register/download/articles?id=${checkboxArray.slice(1)}`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      
-      const blob = await response.blob();
-
-      // Create a link element and trigger a click to initiate download
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'downloaded_file';  // Set the desired filename
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Fetch error:', error);
+      setCheckboxArray(newArray);
+    } else {
+      // Checkbox is not in the array, add it
+      setCheckboxArray((prevArray) => (prevArray ? `${prevArray},${checkboxId}` : checkboxId));
     }
-  }
+
+    // Display the current state of the array
+    console.log(`https://astroeditorbackend.vercel.app/register/download/articles?id=${checkboxArray.slice(1)}`)
   };
 
-const  deleteSelected = async ()=>{
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://astroeditorbackend.vercel.app/register');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if(checkboxArray.length < 1){
-    toast({
-      title: "Array is Empty",
-      description: "Noting to Delete",
-    })
-  }else{
-  try {
-    const response = await axios.delete(`https://astroeditorbackend.vercel.app/register/${checkboxArray.slice(1)}`);
+    fetchData();
+  }, []);
 
-    toast({
-      title: response.data.message,
-      description: ` Total ${response.data.deletedArticles.deletedCount} Deleted`,
-    })
-    
-  } catch (error) {
-    toast({
-      title: "Some Error occured",
-      description: ` error ocuured to deleted`,
-    })
-    console.error('Axios error:', error);
+  const downloadSelected = async () => {
+    if (checkboxArray.length < 1) {
+      toast({
+        title: "Array is Empty",
+        description: "Noting to downlaod",
+      })
+    } else {
+
+      try {
+        const response = await fetch(`https://astroeditorbackend.vercel.app/register/download/articles?id=${checkboxArray.slice(1)}`, {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+
+        // Create a link element and trigger a click to initiate download
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'downloaded_file';  // Set the desired filename
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    }
+  };
+
+  const deleteSelected = async () => {
+
+    if (checkboxArray.length < 1) {
+      toast({
+        title: "Array is Empty",
+        description: "Noting to Delete",
+      })
+    } else {
+      try {
+        const response = await axios.delete(`https://astroeditorbackend.vercel.app/register/${checkboxArray.slice(1)}`);
+
+        toast({
+          title: response.data.message,
+          description: ` Total ${response.data.deletedArticles.deletedCount} Deleted`,
+        })
+
+      } catch (error) {
+        toast({
+          title: "Some Error occured",
+          description: ` error ocuured to deleted`,
+        })
+        console.error('Axios error:', error);
+      }
+    }
   }
+  const datafilter = () => {
+    const filteredData = data.filter(obj => checkboxArray.includes(obj._id));
+    return filteredData
   }
-}
-const datafilter = ()=>{
-  const filteredData = data.filter(obj => checkboxArray.includes(obj._id));
-  return filteredData
-}
-const CopyAllData = () =>{
+  const CopyAllData = () => {
 
-  const filteredData = datafilter()
-  
-  // Generate HTML links based on filtered data
-  const generatedLinks = filteredData.map(items => (
-  `<a href="/${items.newerPath}/${items.url}">${items.h1}</a>`
-  ));
-  
-  // Join the generated HTML links into a single string
-  const htmlToCopy = generatedLinks.join('\n');
-  
-  // Use the Clipboard API to copy the HTML to the clipboard
+    const filteredData = datafilter()
+
+    const generatedLinks = filteredData.map(items => (
+      `<a href="/${items.newerPath}/${items.url}">${items.h1}</a>`
+    ));
+
+    const htmlToCopy = generatedLinks.join('\n');
+
     try {
-       navigator.clipboard.writeText(htmlToCopy);
-      console.log('HTML links successfully copied to clipboard:', htmlToCopy);
-    } catch (error) {
-    console.error('Unable to copy HTML links to clipboard', error);
-}
+      navigator.clipboard.writeText(htmlToCopy);
+      toast({
+        title: "Copied Successfully!!!",
+        description: `Total ${filteredData.length} Articles Copied Successfully`,
+      })
 
-}
+    } catch (error) {
+      toast({
+        title: "Oops! Some Error Occured",
+        description: `Try Again !`,
+      })
+      console.error('Unable to copy HTML links to clipboard', error);
+    }
+
+  }
 
   const handleShare = async () => {
     if (navigator.share) {
       const filteredData = datafilter()
-  
-  // Generate HTML links based on filtered data
-  const generatedLinks = filteredData.map(items => (
-    `https://www.astrosage.com/${items.newerPath}/${items.url}`
-    ));
-    
-    // Join the generated HTML links into a single string
-    const htmlToCopy = generatedLinks.join('\n');
+
+      // Generate HTML links based on filtered data
+      const generatedLinks = filteredData.map(items => (
+        `\nhttps://www.astrosage.com/${items.newerPath}/${items.url}`
+      ));
+
+      // Join the generated HTML links into a single string
+      const htmlToCopy = generatedLinks.join('\n');
       try {
         await navigator.share({
           url: htmlToCopy
@@ -175,10 +180,10 @@ const CopyAllData = () =>{
     }
   }
 
-   return (
-        <div className="rounded-md px-2 mx-2 border">
-              
-                <Table className="letsmke max-sm:w-max">
+  return (
+    <div className="rounded-md px-2 mx-2 border">
+
+      <Table className="letsmke max-sm:w-max">
         <TableHeader>
           <TableRow>
             <TableHead></TableHead>
@@ -186,13 +191,13 @@ const CopyAllData = () =>{
             <TableHead >Path</TableHead>
             <TableHead >URL</TableHead>
             <TableHead >Date</TableHead>
-            <TableHead ><DropdownMenuCheckboxes shareArticleLinks={handleShare} ArticlesCopyAllData={CopyAllData} DownloadArticles={downloadSelected} DeleteArticles={deleteSelected}/></TableHead>
+            <TableHead ><DropdownMenuCheckboxes shareArticleLinks={handleShare} ArticlesCopyAllData={CopyAllData} DownloadArticles={downloadSelected} DeleteArticles={deleteSelected} /></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data && data.map((items , index) => (
+          {data && data.map((items, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium"><Checkbox onClick={()=>updateArray(items._id)} id={items._id} /></TableCell>
+              <TableCell className="font-medium"><Checkbox onClick={() => updateArray(items._id)} id={items._id} /></TableCell>
               <TableCell>{items.AuthorProfile.profilename}</TableCell>
               <TableCell className="font-medium">{items.newerPath.split("/").join("-")}</TableCell>
               <TableCell>{items.url}</TableCell>
@@ -210,10 +215,8 @@ const CopyAllData = () =>{
       </Table>
       <div className="my-2">
 
-      <button onClick={handleShare}>Share</button>
 
       </div>
-      </div>
-    )
-  }
-  
+    </div>
+  )
+}

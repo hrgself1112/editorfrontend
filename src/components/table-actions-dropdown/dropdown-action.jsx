@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { DotsVerticalIcon , DownloadIcon , ClipboardCopyIcon , CrossCircledIcon } from "@radix-ui/react-icons"
+import { DotsVerticalIcon , DownloadIcon , ClipboardCopyIcon , CrossCircledIcon , Share1Icon } from "@radix-ui/react-icons"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -59,7 +59,7 @@ export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  D
         <DropdownMenuItem className="hover:cursor-pointer"
           onClick={shareArticleLinks}
           >
-           <ClipboardCopyIcon className="mr-2"/> 
+           <Share1Icon className="mr-2"/> 
           Share
         </DropdownMenuItem>
 
