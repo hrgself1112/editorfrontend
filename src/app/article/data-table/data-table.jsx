@@ -155,36 +155,31 @@ export function TableDemo() {
   }
 
   const handleShare = async () => {
+    
+    
+    const filteredData = datafilter()
 
-    if (navigator.share) {
-      const filteredData = datafilter()
-      try {
+    const generatedLinks = filteredData.map(items => (
+      `https://www.astrosage.com/${items.newerPath}/${items.url}`
+    ));
 
-        // Generate HTML links based on filtered data
-        const generatedLinks = filteredData.map(items => (
-          `https://www.astrosage.com/${items.newerPath}/${items.url}`
-        ));
+    const htmlToCopy = generatedLinks.join('\n');
 
-        // Join the generated HTML links into a single string
-        const htmlToCopy = generatedLinks.join("\n");
+    try {
+      navigator.clipboard.writeText(htmlToCopy);
+      toast({
+        title: "Copied Successfully!!!",
+        description: `You can share links of ${filteredData.length} articles.`,
+      })
 
-        await navigator.clipboard.writeText(htmlToCopy);
-        const clipboardText = await navigator.clipboard.readText();
-
-        
-
-        await navigator.share({
-          url: await navigator.clipboard.readText()
-        });
-        console.log('Successfully shared', htmlToCopy);
-      } catch (error) {
-        console.error('Error sharing:', error.message);
-      }
-    } else {
-      // Fallback for browsers that do not support the Web Share API
-      alert('Web Share API is not supported in this browser');
-      // You can implement your own sharing solution for unsupported browsers here
+    } catch (error) {
+      toast({
+        title: "Oops! Some Error Occured",
+        description: `Try Again !`,
+      })
+      console.error('Unable to copy HTML links to clipboard', error);
     }
+
   }
 
   const handleShareClipboard = async () => {
