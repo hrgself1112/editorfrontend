@@ -1,8 +1,12 @@
 import { ClipboardCopyIcon } from "@radix-ui/react-icons"
-
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast"
+
 
 export function CopyButton({children}) {
+
+  const { toast } = useToast()
+  
   const copyToClipboard = async () => {
     try {
       // Get the text content from the hidden p element

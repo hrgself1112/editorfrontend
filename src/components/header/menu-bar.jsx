@@ -14,20 +14,21 @@ import {
     MenubarTrigger
   } from "@/components/ui/menubar"
 import ThemeChangeButtons from '@/components/buttons/theme-button/theme-change-buttons'
-  
+import Link from "next/link";
+
   export function MenubarHomePage() {
     return (
       <Menubar className="mx-2 mb-2 relative">
         <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
+          <MenubarTrigger>Navigation</MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+              <Link href="/">Article</Link> 
             </MenubarItem>
             <MenubarItem>
               New Window <MenubarShortcut>⌘N</MenubarShortcut>
             </MenubarItem>
-            <MenubarItem disabled>New Incognito Window</MenubarItem>
+            <MenubarItem >New Incognito Window</MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
               <MenubarSubTrigger>Share</MenubarSubTrigger>

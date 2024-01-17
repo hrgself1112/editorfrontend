@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
+const axios = require('axios');
 import { useToast } from "@/components/ui/use-toast"
 
 
@@ -19,9 +20,9 @@ import { CopyButton } from "@/components/buttons/copy-button/copy-button";
 import { DropdownMenuCheckboxes } from "@/components/table-actions-dropdown/dropdown-action";
 
 
-const axios = require('axios');
-export function TableDemo() {
 
+export function TableDemo() {
+  
   const { toast } = useToast()
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -181,18 +182,6 @@ export function TableDemo() {
     }
 
   }
-
-  const handleShareClipboard = async () => {
-
-    try {
-      // Attempt to read from the clipboard
-      // Use the Clipboard API to write the content back to the clipboard
-
-      console.log('Successfully shared clipboard content:', clipboardText);
-    } catch (error) {
-      console.error('Error sharing clipboard content:', error.message);
-    }
-  };
 
   return (
     <div className="rounded-md px-2 mx-2 border">

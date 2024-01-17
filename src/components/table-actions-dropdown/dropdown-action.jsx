@@ -25,10 +25,6 @@ import {
 export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  DeleteArticles , ArticlesCopyAllData}) {
 
 
-  const [showStatusBar, setShowStatusBar] = React.useState(true)
-  const [showActivityBar, setShowActivityBar] = React.useState(false)
-  const [showPanel, setShowPanel] = React.useState(false)
-
   return (
    <>
     <DropdownMenu>
@@ -59,7 +55,7 @@ export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  D
         <DropdownMenuItem className="hover:cursor-pointer"
           onClick={shareArticleLinks}
           >
-           <ClipboardCopyIcon className="mr-2"/> 
+           <Share1Icon className="mr-2"/> 
           Share
         </DropdownMenuItem>
 
@@ -69,10 +65,8 @@ export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  D
   <AlertDialogTrigger className="max-sm:w-full" aschild>
   <Button variant="ghost" className="max-sm:w-full relative flex cursor-default select-none items-center rounded-sm px-2  text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:cursor-pointer flex justify-start py-1.5">
     
-        {/* <DropdownMenuItem className="hover:cursor-pointer"> */}
            <CrossCircledIcon className="mr-2"/> 
           Delete
-        {/* </DropdownMenuItem> */}
 
   </Button>
   </AlertDialogTrigger>

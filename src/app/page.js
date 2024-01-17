@@ -1,11 +1,8 @@
-import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-heyy 
-
-<Link href="/article" >Article</Link>
+      Its homepage currently its empty navigate to article page to do articles 
     </>
   )
 }
