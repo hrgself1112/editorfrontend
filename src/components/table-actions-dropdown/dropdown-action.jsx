@@ -22,7 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-export function DropdownMenuCheckboxes({DownloadArticles ,  DeleteArticles , ArticlesCopyAllData}) {
+export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  DeleteArticles , ArticlesCopyAllData}) {
 
 
   const [showStatusBar, setShowStatusBar] = React.useState(true)
@@ -48,11 +48,19 @@ export function DropdownMenuCheckboxes({DownloadArticles ,  DeleteArticles , Art
           >
           <DownloadIcon className="mr-2"/> Download
         </DropdownMenuItem>
+     
         <DropdownMenuItem className="hover:cursor-pointer"
           onClick={ArticlesCopyAllData}
           >
            <ClipboardCopyIcon className="mr-2"/> 
           Copy
+        </DropdownMenuItem>
+     
+        <DropdownMenuItem className="hover:cursor-pointer"
+          onClick={shareArticleLinks}
+          >
+           <ClipboardCopyIcon className="mr-2"/> 
+          Share
         </DropdownMenuItem>
 
 

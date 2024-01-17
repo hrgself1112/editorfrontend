@@ -123,11 +123,13 @@ const  deleteSelected = async ()=>{
   }
   }
 }
-
+const datafilter = ()=>{
+  const filteredData = data.filter(obj => checkboxArray.includes(obj._id));
+  return filteredData
+}
 const CopyAllData = () =>{
 
-  
-  const filteredData = data.filter(obj => checkboxArray.includes(obj._id));
+  const filteredData = datafilter()
   
   // Generate HTML links based on filtered data
   const generatedLinks = filteredData.map(items => (
@@ -147,18 +149,47 @@ const CopyAllData = () =>{
 
 }
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      const filteredData = datafilter()
+  
+  // Generate HTML links based on filtered data
+  const generatedLinks = filteredData.map(items => (
+    `https://www.astrosage.com/${items.newerPath}/${items.url}`
+    ));
+    
+    // Join the generated HTML links into a single string
+    const htmlToCopy = generatedLinks.join('\n');
+    
+      try {
+        await navigator.share({
+          title: 'Your website title',
+          text: 'Check out this awesome website!',
+          url: 'https://www.yourwebsite.com'
+        });
+        console.log('Successfully shared');
+      } catch (error) {
+        console.error('Error sharing:', error.message);
+      }
+    } else {
+      // Fallback for browsers that do not support the Web Share API
+      alert('Web Share API is not supported in this browser');
+      // You can implement your own sharing solution for unsupported browsers here
+    }
+  }
+
    return (
         <div className="rounded-md px-2 mx-2 border">
               
                 <Table className="letsmke max-sm:w-max">
         <TableHeader>
           <TableRow>
-            <TableHead ></TableHead>
+            <TableHead></TableHead>
             <TableHead>Author</TableHead>
             <TableHead >Path</TableHead>
             <TableHead >URL</TableHead>
             <TableHead >Date</TableHead>
-            <TableHead ><DropdownMenuCheckboxes ArticlesCopyAllData={CopyAllData} DownloadArticles={downloadSelected} DeleteArticles={deleteSelected}/></TableHead>
+            <TableHead ><DropdownMenuCheckboxes shareArticleLinks={handleShare} ArticlesCopyAllData={CopyAllData} DownloadArticles={downloadSelected} DeleteArticles={deleteSelected}/></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -181,9 +212,8 @@ const CopyAllData = () =>{
         </TableFooter>
       </Table>
       <div className="my-2">
-      <Button onClick={downloadSelected} className="max-sm:w-full my-2">Downlaod</Button>
 
-     
+      <button onClick={handleShare}>Share</button>
 
       </div>
       </div>
