@@ -165,6 +165,7 @@ console.log(obj)
         onInit={(evt, editor) => {
           editorRef.current = editor;
         }}
+        className="max-sm:mx-2"
         initialValue={ArticlesData.content}
         init={{
           // change theme from here
