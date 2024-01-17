@@ -59,7 +59,7 @@ export function DropdownMenuCheckboxes({DownloadArticles , shareArticleLinks,  D
         <DropdownMenuItem className="hover:cursor-pointer"
           onClick={shareArticleLinks}
           >
-           <Share1Icon className="mr-2"/> 
+           <ClipboardCopyIcon className="mr-2"/> 
           Share
         </DropdownMenuItem>
 

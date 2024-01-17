@@ -171,10 +171,10 @@ export function TableDemo() {
         await navigator.clipboard.writeText(htmlToCopy);
         const clipboardText = await navigator.clipboard.readText();
 
-        await navigator.clipboard.writeText(clipboardText.split("https").join("https"));
+        
 
         await navigator.share({
-          url: clipboardText
+          url: await navigator.clipboard.readText()
         });
         console.log('Successfully shared', htmlToCopy);
       } catch (error) {
