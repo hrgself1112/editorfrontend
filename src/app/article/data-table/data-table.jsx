@@ -229,7 +229,6 @@ export function TableDemo() {
       </Table>
       <div className="my-2">
 
-        <button onClick={handleShareClipboard}>v</button>
       </div>
     </div>
   )
