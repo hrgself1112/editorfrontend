@@ -155,21 +155,28 @@ export function TableDemo() {
   }
 
   const handleShare = async () => {
+
     if (navigator.share) {
       const filteredData = datafilter()
-
-      // Generate HTML links based on filtered data
-      const generatedLinks = filteredData.map(items => (
-        `https://www.astrosage.com/${items.newerPath}/${items.url}\n`
-      ));
-
-      // Join the generated HTML links into a single string
-      const htmlToCopy = generatedLinks
       try {
+
+        // Generate HTML links based on filtered data
+        const generatedLinks = filteredData.map(items => (
+          `https://www.astrosage.com/${items.newerPath}/${items.url}`
+        ));
+
+        // Join the generated HTML links into a single string
+        const htmlToCopy = generatedLinks.join("\n");
+
+        await navigator.clipboard.writeText(htmlToCopy);
+        const clipboardText = await navigator.clipboard.readText();
+
+        await navigator.clipboard.writeText(clipboardText.split("https").join("https"));
+
         await navigator.share({
-          url: htmlToCopy.join('\n')
+          url: clipboardText
         });
-        console.log('Successfully shared' , htmlToCopy);
+        console.log('Successfully shared', htmlToCopy);
       } catch (error) {
         console.error('Error sharing:', error.message);
       }
@@ -179,6 +186,18 @@ export function TableDemo() {
       // You can implement your own sharing solution for unsupported browsers here
     }
   }
+
+  const handleShareClipboard = async () => {
+
+    try {
+      // Attempt to read from the clipboard
+      // Use the Clipboard API to write the content back to the clipboard
+
+      console.log('Successfully shared clipboard content:', clipboardText);
+    } catch (error) {
+      console.error('Error sharing clipboard content:', error.message);
+    }
+  };
 
   return (
     <div className="rounded-md px-2 mx-2 border">
@@ -215,7 +234,7 @@ export function TableDemo() {
       </Table>
       <div className="my-2">
 
-
+        <button onClick={handleShareClipboard}>v</button>
       </div>
     </div>
   )
