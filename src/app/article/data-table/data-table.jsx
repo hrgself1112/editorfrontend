@@ -14,17 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast"
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+
+import { CopyButton } from "@/components/buttons/copy-button/copy-button";
+import { DropdownMenuCheckboxes } from "@/components/table-actions-dropdown/dropdown-action";
 
 
 const axios = require('axios');
@@ -131,6 +123,30 @@ const  deleteSelected = async ()=>{
   }
   }
 }
+
+const CopyAllData = () =>{
+
+  
+  const filteredData = data.filter(obj => checkboxArray.includes(obj._id));
+  
+  // Generate HTML links based on filtered data
+  const generatedLinks = filteredData.map(items => (
+  `<a href="/${items.newerPath}/${items.url}">${items.h1}</a>`
+  ));
+  
+  // Join the generated HTML links into a single string
+  const htmlToCopy = generatedLinks.join('\n');
+  
+  // Use the Clipboard API to copy the HTML to the clipboard
+    try {
+       navigator.clipboard.writeText(htmlToCopy);
+      console.log('HTML links successfully copied to clipboard:', htmlToCopy);
+    } catch (error) {
+    console.error('Unable to copy HTML links to clipboard', error);
+}
+
+}
+
    return (
         <div className="rounded-md px-2 mx-2 border">
               
@@ -138,20 +154,22 @@ const  deleteSelected = async ()=>{
         <TableHeader>
           <TableRow>
             <TableHead ></TableHead>
-            <TableHead >Path</TableHead>
-            <TableHead >Date</TableHead>
             <TableHead>Author</TableHead>
+            <TableHead >Path</TableHead>
             <TableHead >URL</TableHead>
+            <TableHead >Date</TableHead>
+            <TableHead ><DropdownMenuCheckboxes ArticlesCopyAllData={CopyAllData} DownloadArticles={downloadSelected} DeleteArticles={deleteSelected}/></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data && data.map((items , index) => (
             <TableRow key={index}>
               <TableCell className="font-medium"><Checkbox onClick={()=>updateArray(items._id)} id={items._id} /></TableCell>
-              <TableCell className="font-medium">{items.newerPath}</TableCell>
-              <TableCell className="text-right">{items.TimeRanges.getCurrentFormattedDate} {items.TimeRanges.getCurrentFormattedTime}</TableCell>
               <TableCell>{items.AuthorProfile.profilename}</TableCell>
+              <TableCell className="font-medium">{items.newerPath.split("/").join("-")}</TableCell>
               <TableCell>{items.url}</TableCell>
+              <TableCell className="text-right">{items.TimeRanges.getCurrentFormattedDate} {items.TimeRanges.getCurrentFormattedTime}</TableCell>
+              <TableCell><CopyButton><a class="list-group-item" href={`/${items.newerPath}/${items.url}`}>{items.h1}</a></CopyButton></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -165,24 +183,7 @@ const  deleteSelected = async ()=>{
       <div className="my-2">
       <Button onClick={downloadSelected} className="max-sm:w-full my-2">Downlaod</Button>
 
-      <AlertDialog>
-  <AlertDialogTrigger className="max-sm:w-full" aschild>
-  <Button className="max-sm:w-full bg-red-400 mt-2">Delete</Button>
-  </AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={deleteSelected} >Continue</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+     
 
       </div>
       </div>
