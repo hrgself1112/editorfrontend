@@ -160,12 +160,9 @@ const CopyAllData = () =>{
     
     // Join the generated HTML links into a single string
     const htmlToCopy = generatedLinks.join('\n');
-    
       try {
         await navigator.share({
-          title: 'Your website title',
-          text: 'Check out this awesome website!',
-          url: 'https://www.yourwebsite.com'
+          url: htmlToCopy
         });
         console.log('Successfully shared');
       } catch (error) {
