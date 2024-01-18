@@ -5,7 +5,7 @@ import ReduxProvider from "@/redux/store/provider";
 import { Toaster } from "@/components/ui/toaster"
 import { MenubarHomePage } from "@/components/header/menu-bar";
 const inter = Inter({ subsets: ["latin"] });
-
+import NextTopLoader from 'nextjs-toploader';
 export const metadata = {
   title: "Astrosage Article Editor",
   description: "Editor made to work easy ",
@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <body className={inter.className}>
+           <NextTopLoader  showSpinner={false} />
            <MenubarHomePage/>
              {children}
           <Toaster />
