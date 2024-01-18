@@ -1,33 +1,39 @@
 "use client"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState, useEffect } from "react"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
+import {Table,TableBody,TableCaption,TableCell,TableFooter,TableHead,TableHeader,TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
 const axios = require('axios');
 import { useToast } from "@/components/ui/use-toast"
-
-
 import { CopyButton } from "@/components/buttons/copy-button/copy-button";
 import { DropdownMenuCheckboxes } from "@/components/table-actions-dropdown/dropdown-action";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData, refetchData } from '@/redux/slices/fetch-refetch-api/fetch-data-api';
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 
 export function TableDemo() {
-  
+    
+
+  const dispatch = useDispatch();
   const { toast } = useToast()
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [checkboxArray, setCheckboxArray] = useState([]);
+
+  const data = useSelector((state) => state.data.data);
+  const status = useSelector((state) => state.data.status);
+
+
+  const handleRefetch = () => {
+    dispatch(refetchData());
+  };
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
 
   const updateArray = (checkboxId) => {
     if (checkboxArray.includes(checkboxId)) {
@@ -46,25 +52,6 @@ export function TableDemo() {
     // Display the current state of the array
     console.log(`https://astroeditorbackend.vercel.app/register/download/articles?id=${checkboxArray.slice(1)}`)
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://astroeditorbackend.vercel.app/register');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const downloadSelected = async () => {
     if (checkboxArray.length < 1) {
@@ -113,7 +100,9 @@ export function TableDemo() {
         toast({
           title: response.data.message,
           description: ` Total ${response.data.deletedArticles.deletedCount} Deleted`,
-        })
+        });
+
+        handleRefetch()
 
       } catch (error) {
         toast({
@@ -184,12 +173,13 @@ export function TableDemo() {
   }
 
   return (
-    <div className="rounded-md px-2 mx-2 border">
-
-      <Table className="letsmke max-sm:w-max">
-        <TableHeader>
+    
+    <div className="rounded-md  over mx-2 border" >
+      <Table className="letsmke  max-sm:w-max">
+        <div style={{display:"contents"}}>
+        <TableHeader className="bg bg-[#0a0a0a] z-[1]" vari style={{position:"sticky", top:"0px"}}>
           <TableRow>
-            <TableHead></TableHead>
+            <TableHead> <div className="hover:cursor-pointer" onClick={handleRefetch}> <ReloadIcon/> </div> </TableHead>
             <TableHead>Author</TableHead>
             <TableHead >Path</TableHead>
             <TableHead >URL</TableHead>
@@ -198,7 +188,24 @@ export function TableDemo() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data && data.map((items, index) => (
+
+  
+{
+  status == 'failed' ?  <div>Error: Unable to fetch data</div>:""
+}
+
+          {data && status == 'loading' ?      
+           
+           
+           <TableRow >
+              <TableCell><Skeleton className="h-4 w-[20px]"></Skeleton></TableCell>
+              <TableCell><Skeleton className="h-4 w-[80px]"></Skeleton></TableCell>
+              <TableCell><Skeleton className="h-4 w-[80px]"></Skeleton></TableCell>
+              <TableCell><Skeleton className="h-4 w-[100px]"></Skeleton></TableCell>
+              <TableCell><Skeleton className="h-4 w-[100px]"></Skeleton></TableCell>
+              <TableCell><Skeleton className="h-4 w-[30px]"></Skeleton></TableCell>
+            </TableRow> 
+            : data.map((items, index) => (
             <TableRow key={index}>
               <TableCell className="font-medium"><Checkbox onClick={() => updateArray(items._id)} id={items._id} /></TableCell>
               <TableCell>{items.AuthorProfile.profilename}</TableCell>
@@ -215,6 +222,8 @@ export function TableDemo() {
             <TableCell >{data && data.length}</TableCell>
           </TableRow>
         </TableFooter>
+        </div>
+      
       </Table>
       <div className="my-2">
 
