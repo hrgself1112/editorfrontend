@@ -176,7 +176,7 @@ export function TableDemo() {
     
     <div className="rounded-md  over mx-2 border" >
       <Table className="letsmke  max-sm:w-max">
-        <div style={{display:"contents"}}>
+        
         <TableHeader className="bg bg-[#0a0a0a] z-[1]" vari style={{position:"sticky", top:"0px"}}>
           <TableRow>
             <TableHead> <div className="hover:cursor-pointer" onClick={handleRefetch}> <ReloadIcon/> </div> </TableHead>
@@ -222,7 +222,7 @@ export function TableDemo() {
             <TableCell >{data && data.length}</TableCell>
           </TableRow>
         </TableFooter>
-        </div>
+        
       
       </Table>
       <div className="my-2">
