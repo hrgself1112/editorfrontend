@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <body className={inter.className}>
-           <NextTopLoader  showSpinner={false} />
+           <NextTopLoader color="#bd2d2d"  showSpinner={false} />
            <MenubarHomePage/>
              {children}
           <Toaster />
