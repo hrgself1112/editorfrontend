@@ -94,9 +94,9 @@ export let data = {
        lang:true,
       "uniqueKey": "Punjabi",
       "searchPunjabi": true,
-      "profilename": "AstroGuru Mragaank (Dr. Mragaank)",
-      "profileUrl": "https://horoscope.astrosage.com/author-astroguru-mragaank/",
-      "profileImageUrl": "https://horoscope.astrosage.com/wp-content/uploads/2019/07/mragaank.jpg",
+      "profilename": "Charu Lata",
+      "profileUrl": "#",
+      "profileImageUrl": "#",
       "FaqLangH2": "ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲ਼ੇ ਪ੍ਰਸ਼ਨ"
     },
     "Urdu": {
